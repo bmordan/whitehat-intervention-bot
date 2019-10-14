@@ -9,6 +9,7 @@ app.use(express.json())
 function err (err) { console.error(err) }
 
 function bot_reply({type, text, subtype}) {
+    console.log({type, text, subtype})
     if (type === 'message' && subtype === 'bot_message') return
     
     const botMessageTypes = {
