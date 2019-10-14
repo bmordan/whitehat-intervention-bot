@@ -9,7 +9,7 @@ app.post('/challenge', (req, res) => {
     res.setHeader('Authorization', `Bearer ${process.env.SLACK_BOT_TOKEN}`)
     res.send({
         text: `Hello you`,
-        channel: 'ANZSTAXUJ'
+        channel: 'test_intervention_bot'
     })
 })
 
