@@ -15,7 +15,7 @@ function bot_reply({username, text, subtype, type}) {
     if (subtype === 'bot_message') return
     console.log({type, app_mention: type === 'app_mention'})
     
-    const user_input = (type === 'app_mention') ? '__hi' : text
+    const user_input = (type === 'app_mention') ? 'app_mention' : text
     
     bot.reply(username, user_input).then(reply => {
         request.post({
