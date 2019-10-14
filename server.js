@@ -5,7 +5,7 @@ app.set('port', process.env.PORT || 9292)
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-app.post("/", (req, res) => {
+app.post("/challenge", (req, res) => {
     const {challenge} = req.body
     res.send({challenge})
 })
