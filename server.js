@@ -16,7 +16,7 @@ let last_message;
 function bot_reply({username, text, subtype, type}) {
     console.log({username, text, last_message, subtype, type})
     if (subtype === 'bot_message') return
-    if (last_message === text) return
+    if (last_message === text && type !== 'app_mention') return
     
     const input = type === 'app_mention' ? "__hi" : text
     
