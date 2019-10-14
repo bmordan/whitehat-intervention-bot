@@ -5,7 +5,8 @@
   },
   "dependencies": {
     "express": "^4.17.1",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "rivescript": "^2.0.0"
   },
   "engine": {
     "node": "11.12.0"
