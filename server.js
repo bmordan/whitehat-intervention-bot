@@ -12,6 +12,7 @@ app.use(express.json())
 function err (err) { console.error(err) }
 
 function bot_reply({username, _text, subtype}) {
+    console.log({username, _text, subtype})
     if (subtype === 'bot_message') return
     
     const input = subtype === 'app_mention' ? "__hi" : _text
@@ -23,9 +24,6 @@ function bot_reply({username, _text, subtype}) {
             json: { text, channel }
         }, err)
     })
-
-
-
 }
 
 app.post('/challenge', (req, res) => {
