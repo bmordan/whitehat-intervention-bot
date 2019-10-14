@@ -13,17 +13,16 @@ function err (err) { console.error(err) }
 
 function bot_reply({username, text, subtype, type}) {
     if (subtype === 'bot_message') return
-    console.log({type, app_mention: type === 'app_mention'})
+
+    const user_input = type === 'app_mention' ? 'app_mention' : text
     
-    const user_input = (type === 'app_mention') ? 'app_mention' : text
-    
-    bot.reply(username, user_input).then(reply => {
+    bot.reply(username = 'local-user', user_input).then(reply => {
         request.post({
             uri: 'https://slack.com/api/chat.postMessage',
             headers: { Authorization: `Bearer ${process.env.SLACK_BOT_TOKEN}` },
             json: { text: reply, channel }
         }, err)
-    })
+    }).catch(err)
 }
 
 app.post('/challenge', (req, res) => {
