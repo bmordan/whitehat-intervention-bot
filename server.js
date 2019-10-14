@@ -14,19 +14,18 @@ function err (err) { console.error(err) }
 function bot_reply({username, _text, subtype}) {
     if (subtype === 'bot_message') return
     
-    let text
+    const input = subtype === 'app_mention' ? "__hi" : _text
     
-    if (subtype === 'app_mention') {
-        text = bot.reply(username, "__hi")
-    } else {
-        text = bot.reply(username, _text)
-    }
+    bot.reply(username, input).then(text => {
+        request.post({
+            uri: 'https://slack.com/api/chat.postMessage',
+            headers: { Authorization: `Bearer ${process.env.SLACK_BOT_TOKEN}` },
+            json: { text, channel }
+        }, err)
+    })
 
-    request.post({
-        uri: 'https://slack.com/api/chat.postMessage',
-        headers: { Authorization: `Bearer ${process.env.SLACK_BOT_TOKEN}` },
-        json: { text, channel }
-    }, err)
+
+
 }
 
 app.post('/challenge', (req, res) => {
@@ -34,9 +33,11 @@ app.post('/challenge', (req, res) => {
     bot_reply(req.body.event)
 })
 
-bot.loadFile(['./brain.rive']).then(() => {
-    bot.sortReplies()
-    app.listen(app.get('port'), () => {
-        console.log(`Intervention Bot alive on port ${app.get('port')}`)
+bot.loadFile(['./brain.rive'])
+    .then(() => {
+        bot.sortReplies()
+        app.listen(app.get('port'), () => {
+            console.log(`Intervention Bot alive on port ${app.get('port')}`)
+        })
     })
-})
+    .catch(err)
