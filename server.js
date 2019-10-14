@@ -12,7 +12,7 @@ app.use(express.json())
 function err (err) { console.error(err) }
 
 function bot_reply({username, text, subtype, type}) {
-    console.log({username, text, last_message, subtype, type})
+    console.log({username, text, subtype, type})
     if (subtype === 'bot_message') return
     
     const input = type === 'app_mention' ? '__hi' : text
