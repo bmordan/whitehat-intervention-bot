@@ -16,7 +16,7 @@ app.post('/challenge', (req, res) => {
         },
         json: {
             text: "Hello you. I'm @WhiteHatBot",
-            channel: 'test_intervention_bot'
+            channel: '#test_intervention_bot'
         }
     }, (err, response, body) => {
         if (err) return console.error(err)
