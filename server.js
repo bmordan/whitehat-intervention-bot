@@ -10,13 +10,13 @@ app.post('/challenge', (req, res) => {
     console.log("FROM SLACK", req.body)
     res.send()
     request.post({
-        url: 'https://slack.com/api/chat.postMessage',
+        uri: 'https://slack.com/api/chat.postMessage',
         headers: {
             Authorization: `Bearer ${process.env.SLACK_BOT_TOKEN}`
         },
-        body: {
+        json: {
             text: "Hello you. I'm @WhiteHatBot",
-            channel: 'ANZSTAXUJ'
+            channel: 'test_intervention_bot'
         }
     }, (err, response, body) => {
         if (err) return console.error(err)
