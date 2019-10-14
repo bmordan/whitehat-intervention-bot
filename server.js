@@ -11,17 +11,17 @@ app.use(express.json())
 
 function err (err) { console.error(err) }
 
-function bot_reply({username, _text, subtype}) {
-    console.log({username, _text, subtype})
+function bot_reply({username, text, subtype}) {
+    console.log({username, text, subtype})
     if (subtype === 'bot_message') return
     
-    const input = subtype === 'app_mention' ? "__hi" : _text
+    const input = subtype === 'app_mention' ? "__hi" : text
     
-    bot.reply(username, input).then(text => {
+    bot.reply(username, input).then(reply => {
         request.post({
             uri: 'https://slack.com/api/chat.postMessage',
             headers: { Authorization: `Bearer ${process.env.SLACK_BOT_TOKEN}` },
-            json: { text, channel }
+            json: { text: reply, channel }
         }, err)
     })
 }
@@ -34,8 +34,6 @@ app.post('/challenge', (req, res) => {
 bot.loadFile(['./brain.rive'])
     .then(() => {
         bot.sortReplies()
-        app.listen(app.get('port'), () => {
-            console.log(`Intervention Bot alive on port ${app.get('port')}`)
-        })
+        app.listen(app.get('port'), () => console.log(`Intervention Bot alive on port ${app.get('port')}`))
     })
     .catch(err)
