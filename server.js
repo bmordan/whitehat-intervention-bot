@@ -14,7 +14,7 @@ function err (err) { console.error(err) }
 function bot_reply({username, text, subtype, type}) {
     if (subtype === 'bot_message') return
 
-    const user_input = type === 'app_mention' ? 'app_mention' : text
+    const user_input = type === 'app_mention' ? 'appmention' : text
     
     bot.reply(username = 'local-user', user_input).then(reply => {
         request.post({
