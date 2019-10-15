@@ -15,7 +15,7 @@ function bot_reply({username, text, subtype, type}) {
     if (subtype === 'bot_message') return
 
     const user_input = type === 'app_mention' ? 'appmention' : text
-    
+    console.log({username, text, subtype, type})
     bot.reply(username = 'local-user', user_input).then(reply => {
         request.post({
             uri: 'https://slack.com/api/chat.postMessage',
