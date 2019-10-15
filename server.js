@@ -13,10 +13,11 @@ function err (err) { console.error(err) }
 
 function bot_reply({username, text, subtype, type}) {
     if (subtype === 'bot_message') return
+    
+    username = username || 'local-user'
+    text = text.includes('<@') ? 'appmention' : text
 
-    const user_input = type === 'app_mention' ? 'appmention' : text
-    console.log({username, text, subtype, type})
-    bot.reply(username = 'local-user', user_input).then(reply => {
+    bot.reply(username, text).then(reply => {
         request.post({
             uri: 'https://slack.com/api/chat.postMessage',
             headers: { Authorization: `Bearer ${process.env.SLACK_BOT_TOKEN}` },
